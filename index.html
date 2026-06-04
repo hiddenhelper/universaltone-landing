@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Universal Tone — Color, considered.</title>
+<meta name="description" content="A formulation tool for the working colorist. Translates Universal Tone results across Redken Shades EQ, Wella Shinefinity, L'Oréal Dia Light, and BLONDME Glow Toners.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #FAFAF8;
+  --bg-warm: #F4EFE7;
+  --surface: #FFFFFF;
+  --brand: #2D3A2E;
+  --coral: #E8612D;
+  --coral-deep: #B25A47;
+  --gold: #C9A96E;
+  --border: #E5DED1;
+  --text: #1C1C1C;
+  --text-mid: #5C544A;
+  --text-light: #8C7F70;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+/* ── Color strip at top, matches the printed card ── */
+.color-strip {
+  display: flex;
+  height: 8px;
+  width: 100%;
+}
+.color-strip > div { flex: 1; }
+.color-strip .c1 { background: #F4E6D2; }
+.color-strip .c2 { background: #D9B98A; }
+.color-strip .c3 { background: #A87856; }
+.color-strip .c4 { background: #6B4A33; }
+.color-strip .c5 { background: #3D2A1E; }
+.color-strip .c6 { background: #2D3A2E; }
+
+/* ── Header ── */
+header {
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--brand);
+  color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: -0.5px;
+}
+.logo-text {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  color: var(--text);
+}
+.header-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 18px;
+  background: var(--brand);
+  color: var(--bg);
+  text-decoration: none;
+  border-radius: 22px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: background 0.2s ease;
+}
+.header-cta:hover { background: #1F2A20; }
+
+/* ── Layout ── */
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+section { padding: 64px 0; }
+
+/* ── Hero ── */
+.hero {
+  padding-top: 28px;
+  padding-bottom: 60px;
+}
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+.eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--text-light);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: 64px;
+  line-height: 1.05;
+  font-weight: 400;
+  letter-spacing: -1.5px;
+  color: var(--text);
+  margin-bottom: 22px;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--brand);
+}
+.hero-sub {
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--text-mid);
+  margin-bottom: 36px;
+  max-width: 480px;
+}
+.hero-sub strong {
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ── Email form ── */
+.email-form {
+  display: flex;
+  gap: 8px;
+  max-width: 460px;
+  margin-bottom: 14px;
+}
+.email-form input[type="email"] {
+  flex: 1;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.email-form input[type="email"]:focus {
+  border-color: var(--brand);
+}
+.email-form button {
+  padding: 14px 22px;
+  background: var(--coral);
+  color: var(--bg);
+  border: none;
+  border-radius: 11px;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.email-form button:hover { background: var(--coral-deep); }
+.form-helper {
+  font-size: 12px;
+  color: var(--text-light);
+  font-style: italic;
+  font-family: var(--serif);
+}
+.form-success {
+  display: none;
+  padding: 14px 16px;
+  background: rgba(45, 58, 46, 0.06);
+  border: 1px solid rgba(45, 58, 46, 0.2);
+  border-radius: 11px;
+  color: var(--brand);
+  font-size: 14px;
+  margin-bottom: 14px;
+  max-width: 460px;
+}
+.form-success.show { display: block; }
+.form-error {
+  display: none;
+  padding: 14px 16px;
+  background: rgba(178, 90, 71, 0.06);
+  border: 1px solid rgba(178, 90, 71, 0.2);
+  border-radius: 11px;
+  color: var(--coral-deep);
+  font-size: 14px;
+  margin-bottom: 14px;
+  max-width: 460px;
+}
+.form-error.show { display: block; }
+
+/* ── Phone mockup ── */
+.phone-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.phone {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  filter: drop-shadow(0 20px 40px rgba(45, 58, 46, 0.12));
+}
+
+/* ── How it works ── */
+.how-section { background: var(--surface); }
+.section-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.section-header .eyebrow { margin-bottom: 12px; }
+.section-header h2 {
+  font-family: var(--serif);
+  font-size: 38px;
+  line-height: 1.2;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  color: var(--text);
+}
+.section-header h2 em { font-style: italic; color: var(--brand); }
+.section-header .sub {
+  margin-top: 12px;
+  font-size: 16px;
+  color: var(--text-mid);
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.step {
+  text-align: left;
+}
+.step-num {
+  font-family: var(--serif);
+  font-size: 28px;
+  color: var(--gold);
+  font-weight: 400;
+  margin-bottom: 14px;
+  letter-spacing: -1px;
+}
+.step h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+  letter-spacing: -0.2px;
+}
+.step p {
+  font-size: 14px;
+  color: var(--text-mid);
+  line-height: 1.55;
+}
+
+/* ── Brands ── */
+.brands-section {
+  background: var(--bg-warm);
+}
+.brand-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.brand-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px 18px;
+  text-align: center;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.brand-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold);
+}
+.brand-card .brand-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+  letter-spacing: -0.2px;
+}
+.brand-card .brand-line {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+/* ── Pricing ── */
+.pricing-section {
+  background: var(--brand);
+  color: var(--bg);
+}
+.pricing-section .eyebrow {
+  color: rgba(250, 250, 248, 0.55);
+}
+.pricing-section h2 {
+  color: var(--bg);
+}
+.pricing-card {
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+  background: rgba(250, 250, 248, 0.04);
+  border: 1px solid rgba(250, 250, 248, 0.12);
+  border-radius: 18px;
+  padding: 40px 32px;
+}
+.price-big {
+  font-family: var(--serif);
+  font-size: 56px;
+  font-weight: 400;
+  letter-spacing: -1.5px;
+  color: var(--bg);
+  margin-bottom: 4px;
+}
+.price-big .currency { font-size: 28px; vertical-align: super; margin-right: 4px; opacity: 0.7; }
+.price-big .period { font-family: var(--sans); font-size: 16px; font-weight: 400; color: rgba(250, 250, 248, 0.6); margin-left: 4px; }
+.price-trial {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--gold);
+  margin-bottom: 22px;
+}
+.price-headline {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: rgba(250, 250, 248, 0.6);
+  margin-bottom: 8px;
+}
+.price-detail {
+  font-size: 13px;
+  color: rgba(250, 250, 248, 0.75);
+  margin-top: 4px;
+  font-family: var(--serif);
+  font-style: italic;
+}
+.pricing-cta {
+  display: inline-block;
+  margin-top: 28px;
+  padding: 15px 32px;
+  background: var(--coral);
+  color: var(--bg);
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.4px;
+  transition: background 0.2s ease;
+}
+.pricing-cta:hover { background: var(--coral-deep); }
+
+/* ── Final CTA strip ── */
+.final-cta {
+  text-align: center;
+  padding: 80px 24px;
+}
+.final-cta h2 {
+  font-family: var(--serif);
+  font-size: 42px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+  margin-bottom: 18px;
+}
+.final-cta h2 em { font-style: italic; color: var(--brand); }
+.final-cta p {
+  font-size: 16px;
+  color: var(--text-mid);
+  margin-bottom: 32px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: var(--serif);
+  font-style: italic;
+}
+.final-cta-button {
+  display: inline-block;
+  padding: 16px 36px;
+  background: var(--coral);
+  color: var(--bg);
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0.4px;
+  transition: background 0.2s ease;
+}
+.final-cta-button:hover { background: var(--coral-deep); }
+
+/* ── Footer ── */
+footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 36px 24px;
+  text-align: center;
+}
+.footer-content {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.footer-tagline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--text-light);
+  margin-bottom: 16px;
+}
+.footer-disclaimer {
+  font-size: 11px;
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.footer-copyright {
+  font-size: 11px;
+  color: var(--text-light);
+  letter-spacing: 0.5px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  section { padding: 48px 0; }
+  .hero { padding-top: 12px; padding-bottom: 32px; }
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .hero h1 { font-size: 44px; }
+  .hero-sub { font-size: 16px; }
+  .phone-wrap { order: -1; }
+  .phone { max-width: 260px; }
+  .steps {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .brand-list {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .section-header h2 { font-size: 30px; }
+  .price-big { font-size: 44px; }
+  .final-cta h2 { font-size: 32px; }
+  .final-cta { padding: 56px 24px; }
+}
+
+@media (max-width: 520px) {
+  header { padding: 18px 20px; }
+  .logo-text { display: none; }
+  .container { padding: 0 20px; }
+  .hero h1 { font-size: 36px; }
+  .email-form {
+    flex-direction: column;
+  }
+  .email-form button { padding: 14px; }
+  .steps {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .brand-list {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .brand-card { padding: 18px; }
+  .pricing-card { padding: 32px 20px; }
+  .price-big { font-size: 40px; }
+  .final-cta h2 { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+
+<div class="color-strip" aria-hidden="true">
+  <div class="c1"></div>
+  <div class="c2"></div>
+  <div class="c3"></div>
+  <div class="c4"></div>
+  <div class="c5"></div>
+  <div class="c6"></div>
+</div>
+
+<header>
+  <div class="logo">
+    <div class="logo-mark">UT</div>
+    <div class="logo-text">UNIVERSAL TONE</div>
+  </div>
+  <a href="https://testflight.apple.com/join/h24eM2yK" class="header-cta">Get early access</a>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="eyebrow">Built by a stylist, for stylists</div>
+        <h1>Color, <em>considered.</em></h1>
+        <p class="hero-sub">
+          A formulation tool for the working colorist.
+          <strong>Validate formulas, explore new color lines, and get a second opinion before you mix.</strong>
+        </p>
+
+        <form class="email-form" id="emailForm" action="https://formspree.io/f/mlgkddpj" method="POST">
+          <input type="email" name="email" placeholder="Your email" required>
+          <input type="hidden" name="source" value="universaltone.app landing">
+          <button type="submit">Join the list</button>
+        </form>
+        <div class="form-success" id="formSuccess">
+          Thank you. We will be in touch with early access details.
+        </div>
+        <div class="form-error" id="formError">
+          Something went wrong. Please try again or scan the QR for direct access.
+        </div>
+        <div class="form-helper">Or scan the QR for direct access to the app.</div>
+      </div>
+
+      <div class="phone-wrap">
+        <svg class="phone" viewBox="0 0 320 640" xmlns="http://www.w3.org/2000/svg">
+          <!-- Phone outline -->
+          <rect x="6" y="6" width="308" height="628" rx="44" ry="44" fill="#1C1C1C"/>
+          <rect x="12" y="12" width="296" height="616" rx="38" ry="38" fill="#FAFAF8"/>
+
+          <!-- Notch / dynamic island -->
+          <rect x="124" y="22" width="72" height="22" rx="11" ry="11" fill="#1C1C1C"/>
+
+          <!-- Status bar text -->
+          <text x="42" y="62" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#1C1C1C">9:41</text>
+          <circle cx="260" cy="58" r="2" fill="#1C1C1C"/>
+          <circle cx="268" cy="58" r="2" fill="#1C1C1C"/>
+          <circle cx="276" cy="58" r="2" fill="#1C1C1C"/>
+
+          <!-- Page header -->
+          <text x="160" y="92" font-family="Playfair Display, serif" font-style="italic" font-size="13" fill="#8C7F70" text-anchor="middle">Result</text>
+
+          <!-- UT primary card -->
+          <rect x="24" y="106" width="272" height="148" rx="16" ry="16" fill="#2D3A2E"/>
+          <text x="40" y="132" font-family="Inter, sans-serif" font-size="9" font-weight="600" letter-spacing="1" fill="#C9A96E">UNIVERSAL TONE</text>
+          <text x="40" y="162" font-family="Playfair Display, serif" font-size="22" fill="#FAFAF8">Level 8, </text>
+          <text x="118" y="162" font-family="Playfair Display, serif" font-style="italic" font-size="22" fill="#FAFAF8">warm beige</text>
+
+          <!-- direction line -->
+          <circle cx="44" cy="184" r="3" fill="#E8612D"/>
+          <text x="54" y="187" font-family="Inter, sans-serif" font-size="11" fill="rgba(250,250,248,0.65)">slightly warmer</text>
+          <line x1="142" y1="178" x2="142" y2="190" stroke="rgba(250,250,248,0.18)" stroke-width="1"/>
+          <text x="150" y="187" font-family="Inter, sans-serif" font-size="11" fill="rgba(250,250,248,0.65)">warm</text>
+
+          <!-- Proportion bar -->
+          <rect x="40" y="206" width="120" height="8" rx="4" fill="#B25A47"/>
+          <rect x="160" y="206" width="60" height="8" rx="4" fill="#C9A96E"/>
+          <rect x="220" y="206" width="60" height="8" rx="4" fill="rgba(250,250,248,0.35)"/>
+
+          <!-- Tone chips -->
+          <rect x="40" y="226" width="64" height="18" rx="9" fill="rgba(250,250,248,0.08)" stroke="rgba(250,250,248,0.18)" stroke-width="0.5"/>
+          <text x="72" y="239" font-family="Inter, sans-serif" font-size="9" font-weight="500" fill="#FAFAF8" text-anchor="middle">Warm Beige</text>
+          <rect x="110" y="226" width="38" height="18" rx="9" fill="rgba(250,250,248,0.08)" stroke="rgba(250,250,248,0.18)" stroke-width="0.5"/>
+          <text x="129" y="239" font-family="Inter, sans-serif" font-size="9" font-weight="500" fill="#FAFAF8" text-anchor="middle">Gold</text>
+          <rect x="154" y="226" width="48" height="18" rx="9" fill="rgba(250,250,248,0.08)" stroke="rgba(250,250,248,0.18)" stroke-width="0.5"/>
+          <text x="178" y="239" font-family="Inter, sans-serif" font-size="9" font-weight="500" fill="#FAFAF8" text-anchor="middle">Neutral</text>
+
+          <!-- "COLOR LINE" label -->
+          <text x="24" y="282" font-family="Inter, sans-serif" font-size="9" font-weight="600" letter-spacing="1" fill="#8C7F70">COLOR LINE</text>
+
+          <!-- Brand pills row 1 -->
+          <rect x="24" y="294" width="78" height="38" rx="19" fill="#2D3A2E"/>
+          <text x="63" y="312" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#FAFAF8" text-anchor="middle">Redken</text>
+          <text x="63" y="323" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="rgba(250,250,248,0.6)" text-anchor="middle">Shades EQ</text>
+
+          <rect x="108" y="294" width="78" height="38" rx="19" fill="#FFFFFF" stroke="#E5DED1" stroke-width="1"/>
+          <text x="147" y="312" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#2D3A2E" text-anchor="middle">Wella</text>
+          <text x="147" y="323" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#5C544A" text-anchor="middle">Shinefinity</text>
+
+          <rect x="192" y="294" width="78" height="38" rx="19" fill="#FFFFFF" stroke="#E5DED1" stroke-width="1"/>
+          <text x="231" y="312" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#2D3A2E" text-anchor="middle">L'Oréal</text>
+          <text x="231" y="323" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#5C544A" text-anchor="middle">Dia Light</text>
+
+          <!-- Brand pills row 2 (centered) -->
+          <rect x="108" y="338" width="104" height="38" rx="19" fill="#FFFFFF" stroke="#E5DED1" stroke-width="1"/>
+          <text x="160" y="356" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#2D3A2E" text-anchor="middle">BLONDME</text>
+          <text x="160" y="367" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#5C544A" text-anchor="middle">Glow Toners</text>
+
+          <!-- Formula tag -->
+          <rect x="116" y="392" width="88" height="20" rx="10" fill="#F4EFE7"/>
+          <text x="160" y="406" font-family="Inter, sans-serif" font-size="9" font-weight="600" letter-spacing="1" fill="#5C544A" text-anchor="middle">INSTANT FORMULA</text>
+
+          <!-- Suggested Formula label -->
+          <text x="160" y="434" font-family="Playfair Display, serif" font-style="italic" font-size="14" fill="#1C1C1C" text-anchor="middle">Suggested Formula</text>
+
+          <!-- formula text -->
+          <text x="160" y="468" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#1C1C1C" text-anchor="middle">½ oz 08G + ¼ oz 08GG</text>
+          <text x="160" y="488" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#1C1C1C" text-anchor="middle">+ ¼ oz 08N</text>
+
+          <!-- tone description -->
+          <text x="160" y="510" font-family="Playfair Display, serif" font-style="italic" font-size="11" fill="#8C7F70" text-anchor="middle">Gold · Gold · Neutral</text>
+
+          <!-- Swatches -->
+          <circle cx="86" cy="558" r="22" fill="#B8923E"/>
+          <circle cx="160" cy="558" r="22" fill="#CDAA54"/>
+          <circle cx="234" cy="558" r="22" fill="#DFC272"/>
+          <text x="86" y="598" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#5C544A" text-anchor="middle">root</text>
+          <text x="160" y="598" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#5C544A" text-anchor="middle">mids</text>
+          <text x="234" y="598" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#5C544A" text-anchor="middle">ends</text>
+
+          <!-- home indicator -->
+          <rect x="120" y="618" width="80" height="4" rx="2" fill="#1C1C1C"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow">Tone with ease behind the chair</div>
+      <h2>How it <em>works.</em></h2>
+      <div class="sub">From service type to color line, in seconds.</div>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Choose service type</h3>
+        <p>Toning, color refresh, lowlights, root smudge, or tone after bleach.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Set your outcome</h3>
+        <p>Tone, lift level, underlying pigment, porosity, and more.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Universal Tone translates</h3>
+        <p>Your goal becomes a brand-independent formula direction.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3>Get your formula</h3>
+        <p>A customized suggestion translated to your color line, in seconds.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="brands-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow">Color lines</div>
+      <h2>Translates across <em>four lines.</em></h2>
+      <div class="sub">More color lines rolling out throughout the year.</div>
+    </div>
+
+    <div class="brand-list">
+      <div class="brand-card">
+        <div class="brand-name">Redken</div>
+        <div class="brand-line">Shades EQ</div>
+      </div>
+      <div class="brand-card">
+        <div class="brand-name">Wella</div>
+        <div class="brand-line">Shinefinity</div>
+      </div>
+      <div class="brand-card">
+        <div class="brand-name">L'Oréal</div>
+        <div class="brand-line">Dia Light</div>
+      </div>
+      <div class="brand-card">
+        <div class="brand-name">BLONDME</div>
+        <div class="brand-line">Glow Toners</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow">Founding member pricing</div>
+      <h2 style="color: #FAFAF8;">Less guessing. <em style="color: #C9A96E;">More confident formulation.</em></h2>
+    </div>
+
+    <div class="pricing-card">
+      <div class="price-headline">1 WEEK FREE TRIAL</div>
+      <div class="price-big">
+        <span class="currency">$</span>4.99<span class="period">/mo</span>
+      </div>
+      <div class="price-trial">during early access</div>
+      <div class="price-detail">Founding members lock this price after public launch.</div>
+
+      <a href="https://testflight.apple.com/join/h24eM2yK" class="pricing-cta">Get early access</a>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <h2>Built by a stylist, <em>for stylists.</em></h2>
+  <p>Join the colorists shaping the next generation of formulation.</p>
+  <a href="https://testflight.apple.com/join/h24eM2yK" class="final-cta-button">Install Universal Tone</a>
+</section>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-tagline">Color, considered.</div>
+    <p class="footer-disclaimer">
+      Universal Tone is an independent tool and is not affiliated with, sponsored by, or endorsed by any listed color brand. Formulas are suggestions and should be adjusted using professional judgment.
+    </p>
+    <p class="footer-copyright">© 2026 Universal Tone. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('emailForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const successEl = document.getElementById('formSuccess');
+    const errorEl = document.getElementById('formError');
+    const button = form.querySelector('button');
+    const originalText = button.textContent;
+
+    successEl.classList.remove('show');
+    errorEl.classList.remove('show');
+    button.textContent = 'Sending...';
+    button.disabled = true;
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        form.reset();
+        successEl.classList.add('show');
+      } else {
+        errorEl.classList.add('show');
+      }
+    } catch (err) {
+      errorEl.classList.add('show');
+    } finally {
+      button.textContent = originalText;
+      button.disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>
