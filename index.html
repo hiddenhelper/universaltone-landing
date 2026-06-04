@@ -66,27 +66,18 @@ header {
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
 }
-.logo-mark {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: var(--brand);
-  color: var(--bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--serif);
-  font-weight: 400;
-  font-size: 14px;
-  letter-spacing: -0.5px;
+.logo-img {
+  height: 48px;
+  width: auto;
+  display: block;
 }
-.logo-text {
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 1.5px;
-  color: var(--text);
+.logo-img-footer {
+  height: 64px;
+  width: auto;
+  display: block;
+  margin: 0 auto 16px;
+  opacity: 0.55;
 }
 .header-cta {
   display: inline-flex;
@@ -490,7 +481,7 @@ footer {
 
 @media (max-width: 520px) {
   header { padding: 18px 20px; }
-  .logo-text { display: none; }
+  .logo-img { height: 38px; }
   .container { padding: 0 20px; }
   .hero h1 { font-size: 36px; }
   .email-form {
@@ -525,8 +516,7 @@ footer {
 
 <header>
   <div class="logo">
-    <div class="logo-mark">UT</div>
-    <div class="logo-text">UNIVERSAL TONE</div>
+    <img src="logo.svg" alt="Universal Tone" class="logo-img">
   </div>
   <a href="https://testflight.apple.com/join/h24eM2yK" class="header-cta">Get early access</a>
 </header>
@@ -740,6 +730,7 @@ footer {
 
 <footer>
   <div class="footer-content">
+    <img src="logo.svg" alt="Universal Tone" class="logo-img-footer">
     <div class="footer-tagline">Color, considered.</div>
     <p class="footer-disclaimer">
       Universal Tone is an independent tool and is not affiliated with, sponsored by, or endorsed by any listed color brand. Formulas are suggestions and should be adjusted using professional judgment.
