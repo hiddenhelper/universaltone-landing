@@ -66,18 +66,26 @@ header {
 .logo {
   display: flex;
   align-items: center;
+  gap: 12px;
 }
-.logo-img {
-  height: 48px;
+.logo-mark-img {
+  height: 36px;
   width: auto;
   display: block;
 }
+.logo-text {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--text);
+}
 .logo-img-footer {
-  height: 64px;
+  height: 80px;
   width: auto;
   display: block;
   margin: 0 auto 16px;
-  opacity: 0.55;
+  opacity: 0.65;
 }
 .header-cta {
   display: inline-flex;
@@ -481,7 +489,8 @@ footer {
 
 @media (max-width: 520px) {
   header { padding: 18px 20px; }
-  .logo-img { height: 38px; }
+  .logo-mark-img { height: 32px; }
+  .logo-text { display: none; }
   .container { padding: 0 20px; }
   .hero h1 { font-size: 36px; }
   .email-form {
@@ -516,7 +525,8 @@ footer {
 
 <header>
   <div class="logo">
-    <img src="logo.svg" alt="Universal Tone" class="logo-img">
+    <img src="logo-mark.svg" alt="UT" class="logo-mark-img">
+    <div class="logo-text">UNIVERSAL TONE</div>
   </div>
   <a href="https://testflight.apple.com/join/h24eM2yK" class="header-cta">Get early access</a>
 </header>
