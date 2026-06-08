@@ -8,28 +8,33 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg: #FAFAF8;
-  --bg-warm: #F4EFE7;
+  --bg: #F8F4EC;
+  --bg-warm: #F1EADC;
+  --bg-deep: #EBE2CF;
   --surface: #FFFFFF;
   --brand: #2D3A2E;
-  --coral: #E8612D;
-  --coral-deep: #B25A47;
-  --gold: #C9A96E;
-  --border: #E5DED1;
-  --text: #1C1C1C;
-  --text-mid: #5C544A;
-  --text-light: #8C7F70;
+  --brand-deep: #1A2419;
+  --coral: #D45A2A;
+  --coral-deep: #A8451F;
+  --gold: #B8924A;
+  --gold-soft: #C9A96E;
+  --gold-light: #D9B98A;
+  --border: #DDD0B5;
+  --border-soft: #E8DFC9;
+  --text: #1A1A1A;
+  --text-mid: #4A4035;
+  --text-light: #7A6E5A;
   --serif: 'Playfair Display', Georgia, serif;
   --sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
-html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 body {
   background: var(--bg);
   color: var(--text);
@@ -38,12 +43,24 @@ body {
   line-height: 1.6;
   font-weight: 400;
   overflow-x: hidden;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(184, 146, 74, 0.025) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(45, 58, 46, 0.02) 0%, transparent 50%);
 }
 
-/* ── Color strip at top, matches the printed card ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .color-strip {
   display: flex;
-  height: 8px;
+  height: 6px;
   width: 100%;
 }
 .color-strip > div { flex: 1; }
@@ -54,461 +71,787 @@ body {
 .color-strip .c5 { background: #3D2A1E; }
 .color-strip .c6 { background: #2D3A2E; }
 
-/* ── Header ── */
 header {
-  padding: 22px 24px;
+  padding: 28px 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1180px;
+  max-width: 1280px;
   margin: 0 auto;
+  position: relative;
+  z-index: 10;
 }
 .logo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 .logo-mark-img {
-  height: 36px;
+  height: 38px;
   width: auto;
   display: block;
 }
 .logo-text {
   font-family: var(--sans);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   color: var(--text);
-}
-.logo-mark-footer {
-  height: 64px;
-  width: auto;
-  display: block;
-  margin: 0 auto 18px;
-  opacity: 0.65;
 }
 .header-cta {
   display: inline-flex;
   align-items: center;
-  padding: 9px 18px;
+  padding: 11px 24px;
+  background: transparent;
+  color: var(--brand);
+  text-decoration: none;
+  border: 1px solid var(--brand);
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+.header-cta:hover {
   background: var(--brand);
   color: var(--bg);
-  text-decoration: none;
-  border-radius: 22px;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.3px;
-  transition: background 0.2s ease;
 }
-.header-cta:hover { background: #1F2A20; }
 
-/* ── Layout ── */
 .container {
-  max-width: 1180px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 40px;
+}
+.container-narrow {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 40px;
 }
 
-section { padding: 64px 0; }
+section { padding: 100px 0; position: relative; }
 
-/* ── Hero ── */
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 0 auto;
+  max-width: 120px;
+}
+.ornament-line {
+  flex: 1;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.5;
+}
+.ornament-mark {
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  transform: rotate(45deg);
+  opacity: 0.7;
+}
+
 .hero {
-  padding-top: 28px;
-  padding-bottom: 60px;
+  padding: 40px 0 80px;
+  position: relative;
 }
 .hero-inner {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 56px;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 80px;
   align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
 }
 .eyebrow {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 2px;
-  color: var(--text-light);
-  text-transform: uppercase;
-  margin-bottom: 18px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: var(--gold);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background: var(--gold);
 }
 .hero h1 {
   font-family: var(--serif);
-  font-size: 64px;
-  line-height: 1.05;
+  font-size: 88px;
+  line-height: 0.98;
   font-weight: 400;
-  letter-spacing: -1.5px;
+  letter-spacing: -2.5px;
   color: var(--text);
-  margin-bottom: 22px;
+  margin-bottom: 32px;
 }
 .hero h1 em {
   font-style: italic;
   color: var(--brand);
+  font-weight: 500;
 }
 .hero-sub {
-  font-size: 18px;
-  line-height: 1.55;
+  font-family: var(--serif);
+  font-size: 21px;
+  line-height: 1.5;
+  font-weight: 400;
   color: var(--text-mid);
-  margin-bottom: 36px;
+  margin-bottom: 32px;
+  max-width: 520px;
+  font-style: italic;
+}
+.hero-sub-emph {
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 40px;
   max-width: 480px;
 }
-.hero-sub strong {
-  font-weight: 600;
-  color: var(--text);
-}
 
-/* ── Email form ── */
 .email-form {
   display: flex;
-  gap: 8px;
-  max-width: 460px;
-  margin-bottom: 14px;
+  gap: 0;
+  max-width: 520px;
+  margin-bottom: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 6px;
+  transition: border-color 0.3s ease;
+}
+.email-form:focus-within {
+  border-color: var(--brand);
 }
 .email-form input[type="email"] {
   flex: 1;
-  padding: 14px 16px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 11px;
+  padding: 14px 18px;
+  background: transparent;
+  border: none;
   font-family: var(--sans);
   font-size: 14px;
   color: var(--text);
   outline: none;
-  transition: border-color 0.2s ease;
 }
-.email-form input[type="email"]:focus {
-  border-color: var(--brand);
-}
-.email-form button {
-  padding: 14px 22px;
-  background: var(--coral);
-  color: var(--bg);
-  border: none;
-  border-radius: 11px;
-  font-family: var(--sans);
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.3px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-.email-form button:hover { background: var(--coral-deep); }
-.form-helper {
-  font-size: 12px;
+.email-form input[type="email"]::placeholder {
   color: var(--text-light);
   font-style: italic;
   font-family: var(--serif);
+  font-size: 15px;
 }
+.email-form button {
+  padding: 14px 28px;
+  background: var(--brand);
+  color: var(--bg);
+  border: none;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  white-space: nowrap;
+}
+.email-form button:hover { background: var(--brand-deep); }
+
 .form-success {
   display: none;
-  padding: 14px 16px;
-  background: rgba(45, 58, 46, 0.06);
-  border: 1px solid rgba(45, 58, 46, 0.2);
-  border-radius: 11px;
+  padding: 18px 22px;
+  background: rgba(45, 58, 46, 0.05);
+  border-left: 2px solid var(--brand);
   color: var(--brand);
   font-size: 14px;
-  margin-bottom: 14px;
-  max-width: 460px;
+  margin-bottom: 16px;
+  max-width: 520px;
+  font-family: var(--serif);
+  font-style: italic;
+  line-height: 1.55;
 }
 .form-success.show { display: block; }
 .form-error {
   display: none;
-  padding: 14px 16px;
-  background: rgba(178, 90, 71, 0.06);
-  border: 1px solid rgba(178, 90, 71, 0.2);
-  border-radius: 11px;
+  padding: 18px 22px;
+  background: rgba(168, 69, 31, 0.05);
+  border-left: 2px solid var(--coral-deep);
   color: var(--coral-deep);
   font-size: 14px;
-  margin-bottom: 14px;
-  max-width: 460px;
+  margin-bottom: 16px;
+  max-width: 520px;
+  font-family: var(--serif);
+  font-style: italic;
 }
 .form-error.show { display: block; }
 
-/* ── Phone mockup ── */
+.form-helper {
+  font-size: 13px;
+  color: var(--text-light);
+  font-style: italic;
+  font-family: var(--serif);
+  letter-spacing: 0.2px;
+}
+.beta-link {
+  color: var(--brand);
+  text-decoration: none;
+  font-style: normal;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 2px;
+  margin-left: 4px;
+  transition: all 0.3s ease;
+}
+.beta-link:hover {
+  color: var(--gold);
+  border-color: var(--brand);
+}
+
 .phone-wrap {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+.phone-wrap::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 130%;
+  height: 110%;
+  background: radial-gradient(ellipse at center, rgba(184, 146, 74, 0.08) 0%, transparent 65%);
+  z-index: 0;
 }
 .phone {
   width: 100%;
-  max-width: 320px;
+  max-width: 340px;
   height: auto;
-  filter: drop-shadow(0 20px 40px rgba(45, 58, 46, 0.12));
+  filter: drop-shadow(0 30px 60px rgba(45, 58, 46, 0.18)) drop-shadow(0 10px 20px rgba(45, 58, 46, 0.06));
+  position: relative;
+  z-index: 1;
+  animation: float 6s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
-/* ── How it works ── */
-.how-section { background: var(--surface); }
-.section-header {
-  text-align: center;
-  margin-bottom: 56px;
+.pull-quote-section {
+  padding: 60px 0 80px;
+  position: relative;
 }
-.section-header .eyebrow { margin-bottom: 12px; }
-.section-header h2 {
+.pull-quote {
   font-family: var(--serif);
-  font-size: 38px;
-  line-height: 1.2;
+  font-style: italic;
+  font-size: 36px;
+  line-height: 1.35;
+  color: var(--text);
+  text-align: center;
   font-weight: 400;
   letter-spacing: -0.5px;
-  color: var(--text);
+  max-width: 720px;
+  margin: 0 auto;
+  position: relative;
 }
-.section-header h2 em { font-style: italic; color: var(--brand); }
-.section-header .sub {
-  margin-top: 12px;
-  font-size: 16px;
+.pull-quote::before {
+  content: '\201C';
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--serif);
+  font-size: 120px;
+  color: var(--gold);
+  opacity: 0.25;
+  line-height: 1;
+  font-style: normal;
+}
+.pull-quote em {
+  color: var(--brand);
+  font-weight: 500;
+}
+.pull-quote-attribution {
+  margin-top: 32px;
+  text-align: center;
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.how-section {
+  background: var(--bg-warm);
+  padding: 120px 0;
+}
+.section-header {
+  text-align: center;
+  margin-bottom: 100px;
+}
+.section-header .eyebrow {
+  justify-content: center;
+}
+.section-header .eyebrow::after {
+  content: '';
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background: var(--gold);
+}
+.section-header h2 {
+  font-family: var(--serif);
+  font-size: 56px;
+  line-height: 1.1;
+  font-weight: 400;
+  letter-spacing: -1.2px;
+  color: var(--text);
+  margin-top: 8px;
+}
+.section-header h2 em { font-style: italic; color: var(--brand); font-weight: 500; }
+.section-header .section-sub {
+  margin-top: 24px;
+  font-size: 18px;
   color: var(--text-mid);
   font-family: var(--serif);
   font-style: italic;
+  font-weight: 400;
 }
 
-.steps {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 28px;
-  max-width: 1000px;
+.steps-editorial {
+  max-width: 920px;
   margin: 0 auto;
 }
-.step {
+.step-editorial {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 60px;
+  align-items: start;
+  padding: 48px 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+.step-editorial:last-child { border-bottom: none; }
+.step-editorial:nth-child(even) {
+  grid-template-columns: 1fr 180px;
+}
+.step-editorial:nth-child(even) .step-content {
+  order: 1;
+  text-align: right;
+}
+.step-editorial:nth-child(even) .step-num-wrap {
+  order: 2;
   text-align: left;
+}
+.step-num-wrap {
+  text-align: right;
 }
 .step-num {
   font-family: var(--serif);
-  font-size: 28px;
+  font-size: 96px;
   color: var(--gold);
   font-weight: 400;
-  margin-bottom: 14px;
-  letter-spacing: -1px;
+  font-style: italic;
+  line-height: 0.9;
+  letter-spacing: -3px;
 }
-.step h3 {
-  font-size: 15px;
-  font-weight: 600;
+.step-label {
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-top: 12px;
+  font-weight: 500;
+}
+.step-content h3 {
+  font-family: var(--serif);
+  font-size: 32px;
+  font-weight: 400;
   color: var(--text);
-  margin-bottom: 8px;
-  letter-spacing: -0.2px;
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
 }
-.step p {
-  font-size: 14px;
+.step-content h3 em { font-style: italic; color: var(--brand); }
+.step-content p {
+  font-size: 16px;
   color: var(--text-mid);
-  line-height: 1.55;
+  line-height: 1.7;
+  max-width: 480px;
+  font-family: var(--serif);
+}
+.step-editorial:nth-child(even) .step-content p {
+  margin-left: auto;
 }
 
-/* ── Brands ── */
 .brands-section {
-  background: var(--bg-warm);
+  background: var(--bg);
+  padding: 120px 0;
 }
 .brand-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  max-width: 900px;
-  margin: 0 auto;
+  gap: 20px;
+  max-width: 1080px;
+  margin: 60px auto 0;
 }
 .brand-card {
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 24px 18px;
+  border: 1px solid var(--border-soft);
+  padding: 48px 24px 36px;
   text-align: center;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.brand-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 3px;
+  background: var(--gold);
+  opacity: 0.6;
+  transition: opacity 0.3s ease, width 0.3s ease;
 }
 .brand-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-6px);
   border-color: var(--gold);
+  box-shadow: 0 20px 40px rgba(45, 58, 46, 0.08);
+}
+.brand-card:hover::before {
+  width: 60px;
+  opacity: 1;
+}
+.brand-number {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--gold);
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
 }
 .brand-card .brand-name {
-  font-size: 15px;
-  font-weight: 600;
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
   color: var(--text);
-  margin-bottom: 4px;
-  letter-spacing: -0.2px;
+  margin-bottom: 6px;
+  letter-spacing: -0.4px;
 }
 .brand-card .brand-line {
   font-family: var(--serif);
   font-style: italic;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text-light);
 }
 
-/* ── Pricing ── */
 .pricing-section {
   background: var(--brand);
   color: var(--bg);
+  padding: 120px 0;
+  position: relative;
+  overflow: hidden;
+}
+.pricing-section::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(184, 146, 74, 0.15) 0%, transparent 70%);
+}
+.pricing-section::after {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  left: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(184, 146, 74, 0.08) 0%, transparent 70%);
+}
+.pricing-section .container {
+  position: relative;
+  z-index: 1;
 }
 .pricing-section .eyebrow {
-  color: rgba(250, 250, 248, 0.55);
+  color: var(--gold-light);
+  justify-content: center;
+}
+.pricing-section .eyebrow::before, .pricing-section .eyebrow::after {
+  background: var(--gold-light);
 }
 .pricing-section h2 {
   color: var(--bg);
 }
 .pricing-card {
-  max-width: 480px;
-  margin: 0 auto;
+  max-width: 520px;
+  margin: 60px auto 0;
   text-align: center;
-  background: rgba(250, 250, 248, 0.04);
-  border: 1px solid rgba(250, 250, 248, 0.12);
-  border-radius: 18px;
-  padding: 40px 32px;
+  background: rgba(248, 244, 236, 0.04);
+  border: 1px solid rgba(184, 146, 74, 0.25);
+  padding: 60px 48px;
+  position: relative;
+}
+.pricing-card::before, .pricing-card::after {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--gold-light);
+}
+.pricing-card::before {
+  top: -1px;
+  left: -1px;
+  border-right: none;
+  border-bottom: none;
+}
+.pricing-card::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: none;
+  border-top: none;
+}
+.price-headline {
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  color: var(--gold-light);
+  margin-bottom: 24px;
+  text-transform: uppercase;
 }
 .price-big {
   font-family: var(--serif);
-  font-size: 56px;
+  font-size: 84px;
   font-weight: 400;
-  letter-spacing: -1.5px;
+  letter-spacing: -3px;
   color: var(--bg);
   margin-bottom: 4px;
+  line-height: 1;
 }
-.price-big .currency { font-size: 28px; vertical-align: super; margin-right: 4px; opacity: 0.7; }
-.price-big .period { font-family: var(--sans); font-size: 16px; font-weight: 400; color: rgba(250, 250, 248, 0.6); margin-left: 4px; }
+.price-big .currency { font-size: 36px; vertical-align: super; margin-right: 6px; opacity: 0.65; font-style: italic; }
+.price-big .period { font-family: var(--sans); font-size: 18px; font-weight: 300; color: rgba(248, 244, 236, 0.5); margin-left: 6px; letter-spacing: 0.5px; }
 .price-trial {
   font-family: var(--serif);
   font-style: italic;
-  font-size: 15px;
-  color: var(--gold);
-  margin-bottom: 22px;
-}
-.price-headline {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  color: rgba(250, 250, 248, 0.6);
-  margin-bottom: 8px;
+  font-size: 17px;
+  color: var(--gold-light);
+  margin-bottom: 32px;
+  font-weight: 400;
 }
 .price-detail {
-  font-size: 13px;
-  color: rgba(250, 250, 248, 0.75);
-  margin-top: 4px;
+  font-size: 14px;
+  color: rgba(248, 244, 236, 0.75);
   font-family: var(--serif);
   font-style: italic;
+  line-height: 1.65;
+  margin: 0 auto;
+  max-width: 380px;
 }
 .pricing-cta {
   display: inline-block;
-  margin-top: 28px;
-  padding: 15px 32px;
+  margin-top: 40px;
+  padding: 18px 40px;
   background: var(--coral);
   color: var(--bg);
   text-decoration: none;
-  border-radius: 12px;
+  font-family: var(--sans);
   font-weight: 500;
-  font-size: 14px;
-  letter-spacing: 0.4px;
-  transition: background 0.2s ease;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: background 0.3s ease;
 }
 .pricing-cta:hover { background: var(--coral-deep); }
 
-/* ── Final CTA strip ── */
 .final-cta {
   text-align: center;
-  padding: 80px 24px;
+  padding: 140px 40px;
+  background: var(--bg);
+}
+.final-cta .eyebrow {
+  justify-content: center;
+}
+.final-cta .eyebrow::after {
+  content: '';
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background: var(--gold);
 }
 .final-cta h2 {
   font-family: var(--serif);
-  font-size: 42px;
+  font-size: 64px;
   font-weight: 400;
-  letter-spacing: -0.5px;
-  line-height: 1.15;
-  margin-bottom: 18px;
+  letter-spacing: -1.5px;
+  line-height: 1.05;
+  margin-top: 16px;
+  margin-bottom: 28px;
 }
-.final-cta h2 em { font-style: italic; color: var(--brand); }
+.final-cta h2 em { font-style: italic; color: var(--brand); font-weight: 500; }
 .final-cta p {
-  font-size: 16px;
+  font-size: 19px;
   color: var(--text-mid);
-  margin-bottom: 32px;
-  max-width: 480px;
+  margin-bottom: 48px;
+  max-width: 540px;
   margin-left: auto;
   margin-right: auto;
   font-family: var(--serif);
   font-style: italic;
+  line-height: 1.5;
 }
 .final-cta-button {
   display: inline-block;
-  padding: 16px 36px;
+  padding: 20px 44px;
   background: var(--coral);
   color: var(--bg);
   text-decoration: none;
-  border-radius: 12px;
+  font-family: var(--sans);
   font-weight: 500;
-  font-size: 15px;
-  letter-spacing: 0.4px;
-  transition: background 0.2s ease;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: background 0.3s ease;
 }
 .final-cta-button:hover { background: var(--coral-deep); }
 
-/* ── Footer ── */
 footer {
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  padding: 36px 24px;
+  background: var(--brand);
+  color: rgba(248, 244, 236, 0.7);
+  padding: 80px 40px 48px;
   text-align: center;
 }
 .footer-content {
   max-width: 720px;
   margin: 0 auto;
 }
+.logo-mark-footer {
+  height: 56px;
+  width: auto;
+  display: block;
+  margin: 0 auto 24px;
+  opacity: 0.55;
+  filter: brightness(0) invert(1);
+}
 .footer-tagline {
   font-family: var(--serif);
   font-style: italic;
-  font-size: 13px;
-  color: var(--text-light);
-  margin-bottom: 16px;
+  font-size: 18px;
+  color: var(--gold-light);
+  margin-bottom: 36px;
+  letter-spacing: 0.3px;
+}
+.footer-divider {
+  width: 40px;
+  height: 1px;
+  background: rgba(184, 146, 74, 0.4);
+  margin: 0 auto 36px;
 }
 .footer-disclaimer {
-  font-size: 11px;
-  color: var(--text-light);
-  line-height: 1.6;
-  margin-bottom: 12px;
+  font-size: 12px;
+  color: rgba(248, 244, 236, 0.5);
+  line-height: 1.7;
+  margin-bottom: 24px;
+  font-style: italic;
+  font-family: var(--serif);
 }
 .footer-copyright {
   font-size: 11px;
-  color: var(--text-light);
-  letter-spacing: 0.5px;
+  color: rgba(248, 244, 236, 0.35);
+  letter-spacing: 1.5px;
+  font-family: var(--sans);
+  text-transform: uppercase;
 }
 
-/* ── Responsive ── */
+@media (max-width: 1100px) {
+  .hero h1 { font-size: 72px; }
+  .section-header h2 { font-size: 48px; }
+  .final-cta h2 { font-size: 52px; }
+}
+
 @media (max-width: 900px) {
-  section { padding: 48px 0; }
-  .hero { padding-top: 12px; padding-bottom: 32px; }
+  section { padding: 72px 0; }
+  .hero { padding: 24px 0 48px; }
   .hero-inner {
     grid-template-columns: 1fr;
-    gap: 36px;
+    gap: 48px;
+    padding: 0 28px;
   }
-  .hero h1 { font-size: 44px; }
-  .hero-sub { font-size: 16px; }
+  .hero h1 { font-size: 56px; }
+  .hero-sub { font-size: 18px; }
   .phone-wrap { order: -1; }
-  .phone { max-width: 260px; }
-  .steps {
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
+  .phone { max-width: 280px; }
+  .pull-quote { font-size: 26px; }
+  .pull-quote::before { font-size: 80px; top: -40px; }
+  .how-section, .brands-section, .pricing-section { padding: 80px 0; }
+  .section-header { margin-bottom: 64px; }
+  .section-header h2 { font-size: 38px; }
+  .step-editorial {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+    padding: 36px 0;
   }
+  .step-editorial:nth-child(even) .step-content { text-align: left; }
+  .step-editorial:nth-child(even) .step-content p { margin-left: 0; }
+  .step-num-wrap { text-align: left !important; order: 1 !important; }
+  .step-content { order: 2 !important; }
+  .step-num { font-size: 64px; }
+  .step-content h3 { font-size: 26px; }
   .brand-list {
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    gap: 14px;
   }
-  .section-header h2 { font-size: 30px; }
-  .price-big { font-size: 44px; }
-  .final-cta h2 { font-size: 32px; }
-  .final-cta { padding: 56px 24px; }
+  .price-big { font-size: 64px; }
+  .pricing-card { padding: 48px 28px; }
+  .final-cta { padding: 80px 28px; }
+  .final-cta h2 { font-size: 40px; }
+  .container, .container-narrow { padding: 0 28px; }
 }
 
 @media (max-width: 520px) {
-  header { padding: 18px 20px; }
+  header { padding: 22px 24px; }
   .logo-mark-img { height: 32px; }
   .logo-text { display: none; }
-  .container { padding: 0 20px; }
-  .hero h1 { font-size: 36px; }
+  .header-cta { padding: 10px 18px; font-size: 11px; }
+  .hero h1 { font-size: 44px; letter-spacing: -1.5px; }
+  .hero-sub { font-size: 16px; }
   .email-form {
     flex-direction: column;
+    padding: 0;
+    background: transparent;
+    border: none;
+    gap: 10px;
   }
-  .email-form button { padding: 14px; }
-  .steps {
-    grid-template-columns: 1fr;
-    gap: 24px;
+  .email-form input[type="email"] {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 16px 18px;
   }
+  .email-form button { padding: 16px; }
+  .section-header h2 { font-size: 30px; }
   .brand-list {
     grid-template-columns: 1fr;
-    gap: 8px;
   }
-  .brand-card { padding: 18px; }
-  .pricing-card { padding: 32px 20px; }
-  .price-big { font-size: 40px; }
-  .final-cta h2 { font-size: 26px; }
+  .price-big { font-size: 56px; }
+  .final-cta h2 { font-size: 30px; }
+  .pull-quote { font-size: 22px; }
 }
 </style>
 </head>
@@ -528,156 +871,161 @@ footer {
     <img src="logo-mark.svg" alt="UT" class="logo-mark-img">
     <div class="logo-text">UNIVERSAL TONE</div>
   </div>
-  <a href="https://testflight.apple.com/join/h24eM2yK" class="header-cta">Get early access</a>
+  <a href="#emailForm" class="header-cta">Join the list</a>
 </header>
 
 <section class="hero">
-  <div class="container">
-    <div class="hero-inner">
-      <div class="hero-text">
-        <div class="eyebrow">Built by a stylist, for stylists</div>
-        <h1>Color, <em>considered.</em></h1>
-        <p class="hero-sub">
-          A formulation tool for the working colorist.
-          <strong>Validate formulas, explore new color lines, and get a second opinion before you mix.</strong>
-        </p>
+  <div class="hero-inner">
+    <div class="hero-text reveal">
+      <div class="eyebrow">Built by a stylist, for stylists</div>
+      <h1>Color,<br><em>considered.</em></h1>
+      <p class="hero-sub">
+        A formulation tool for the working colorist. Validate formulas, explore new color lines, and get a second opinion before you mix.
+      </p>
+      <p class="hero-sub-emph">
+        Join the founding stylist list to lock in early access pricing and shape the future of multi-brand toner formulation.
+      </p>
 
-        <form class="email-form" id="emailForm" action="https://formspree.io/f/mlgkddpj" method="POST">
-          <input type="email" name="email" placeholder="Your email" required>
-          <input type="hidden" name="source" value="universaltone.app landing">
-          <button type="submit">Join the list</button>
-        </form>
-        <div class="form-success" id="formSuccess">
-          Thank you. We will be in touch with early access details.
-        </div>
-        <div class="form-error" id="formError">
-          Something went wrong. Please try again or scan the QR for direct access.
-        </div>
-        <div class="form-helper">Or scan the QR for direct access to the app.</div>
+      <form class="email-form" id="emailForm" action="https://formspree.io/f/mlgkddpj" method="POST">
+        <input type="email" name="email" placeholder="Your email address" required>
+        <input type="hidden" name="source" value="universaltone.app landing">
+        <button type="submit">Become a founding stylist</button>
+      </form>
+      <div class="form-success" id="formSuccess">
+        You're on the founding stylist list. We'll email you when Universal Tone launches on the App Store, with founding member pricing locked in.
       </div>
-
-      <div class="phone-wrap">
-        <svg class="phone" viewBox="0 0 320 640" xmlns="http://www.w3.org/2000/svg">
-          <!-- Phone outline -->
-          <rect x="6" y="6" width="308" height="628" rx="44" ry="44" fill="#1C1C1C"/>
-          <rect x="12" y="12" width="296" height="616" rx="38" ry="38" fill="#FAFAF8"/>
-
-          <!-- Notch / dynamic island -->
-          <rect x="124" y="22" width="72" height="22" rx="11" ry="11" fill="#1C1C1C"/>
-
-          <!-- Status bar text -->
-          <text x="42" y="62" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#1C1C1C">9:41</text>
-          <circle cx="260" cy="58" r="2" fill="#1C1C1C"/>
-          <circle cx="268" cy="58" r="2" fill="#1C1C1C"/>
-          <circle cx="276" cy="58" r="2" fill="#1C1C1C"/>
-
-          <!-- Page header -->
-          <text x="160" y="92" font-family="Playfair Display, serif" font-style="italic" font-size="13" fill="#8C7F70" text-anchor="middle">Result</text>
-
-          <!-- UT primary card -->
-          <rect x="24" y="106" width="272" height="148" rx="16" ry="16" fill="#2D3A2E"/>
-          <text x="40" y="132" font-family="Inter, sans-serif" font-size="9" font-weight="600" letter-spacing="1" fill="#C9A96E">UNIVERSAL TONE</text>
-          <text x="40" y="162" font-family="Playfair Display, serif" font-size="22" fill="#FAFAF8">Level 8, </text>
-          <text x="118" y="162" font-family="Playfair Display, serif" font-style="italic" font-size="22" fill="#FAFAF8">warm beige</text>
-
-          <!-- direction line -->
-          <circle cx="44" cy="184" r="3" fill="#E8612D"/>
-          <text x="54" y="187" font-family="Inter, sans-serif" font-size="11" fill="rgba(250,250,248,0.65)">slightly warmer</text>
-          <line x1="142" y1="178" x2="142" y2="190" stroke="rgba(250,250,248,0.18)" stroke-width="1"/>
-          <text x="150" y="187" font-family="Inter, sans-serif" font-size="11" fill="rgba(250,250,248,0.65)">warm</text>
-
-          <!-- Proportion bar -->
-          <rect x="40" y="206" width="120" height="8" rx="4" fill="#B25A47"/>
-          <rect x="160" y="206" width="60" height="8" rx="4" fill="#C9A96E"/>
-          <rect x="220" y="206" width="60" height="8" rx="4" fill="rgba(250,250,248,0.35)"/>
-
-          <!-- Tone chips -->
-          <rect x="40" y="226" width="64" height="18" rx="9" fill="rgba(250,250,248,0.08)" stroke="rgba(250,250,248,0.18)" stroke-width="0.5"/>
-          <text x="72" y="239" font-family="Inter, sans-serif" font-size="9" font-weight="500" fill="#FAFAF8" text-anchor="middle">Warm Beige</text>
-          <rect x="110" y="226" width="38" height="18" rx="9" fill="rgba(250,250,248,0.08)" stroke="rgba(250,250,248,0.18)" stroke-width="0.5"/>
-          <text x="129" y="239" font-family="Inter, sans-serif" font-size="9" font-weight="500" fill="#FAFAF8" text-anchor="middle">Gold</text>
-          <rect x="154" y="226" width="48" height="18" rx="9" fill="rgba(250,250,248,0.08)" stroke="rgba(250,250,248,0.18)" stroke-width="0.5"/>
-          <text x="178" y="239" font-family="Inter, sans-serif" font-size="9" font-weight="500" fill="#FAFAF8" text-anchor="middle">Neutral</text>
-
-          <!-- "COLOR LINE" label -->
-          <text x="24" y="282" font-family="Inter, sans-serif" font-size="9" font-weight="600" letter-spacing="1" fill="#8C7F70">COLOR LINE</text>
-
-          <!-- Brand pills row 1 -->
-          <rect x="24" y="294" width="78" height="38" rx="19" fill="#2D3A2E"/>
-          <text x="63" y="312" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#FAFAF8" text-anchor="middle">Redken</text>
-          <text x="63" y="323" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="rgba(250,250,248,0.6)" text-anchor="middle">Shades EQ</text>
-
-          <rect x="108" y="294" width="78" height="38" rx="19" fill="#FFFFFF" stroke="#E5DED1" stroke-width="1"/>
-          <text x="147" y="312" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#2D3A2E" text-anchor="middle">Wella</text>
-          <text x="147" y="323" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#5C544A" text-anchor="middle">Shinefinity</text>
-
-          <rect x="192" y="294" width="78" height="38" rx="19" fill="#FFFFFF" stroke="#E5DED1" stroke-width="1"/>
-          <text x="231" y="312" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#2D3A2E" text-anchor="middle">L'Oréal</text>
-          <text x="231" y="323" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#5C544A" text-anchor="middle">Dia Light</text>
-
-          <!-- Brand pills row 2 (centered) -->
-          <rect x="108" y="338" width="104" height="38" rx="19" fill="#FFFFFF" stroke="#E5DED1" stroke-width="1"/>
-          <text x="160" y="356" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#2D3A2E" text-anchor="middle">BLONDME</text>
-          <text x="160" y="367" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#5C544A" text-anchor="middle">Glow Toners</text>
-
-          <!-- Formula tag -->
-          <rect x="116" y="392" width="88" height="20" rx="10" fill="#F4EFE7"/>
-          <text x="160" y="406" font-family="Inter, sans-serif" font-size="9" font-weight="600" letter-spacing="1" fill="#5C544A" text-anchor="middle">INSTANT FORMULA</text>
-
-          <!-- Suggested Formula label -->
-          <text x="160" y="434" font-family="Playfair Display, serif" font-style="italic" font-size="14" fill="#1C1C1C" text-anchor="middle">Suggested Formula</text>
-
-          <!-- formula text -->
-          <text x="160" y="468" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#1C1C1C" text-anchor="middle">½ oz 08G + ¼ oz 08GG</text>
-          <text x="160" y="488" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#1C1C1C" text-anchor="middle">+ ¼ oz 08N</text>
-
-          <!-- tone description -->
-          <text x="160" y="510" font-family="Playfair Display, serif" font-style="italic" font-size="11" fill="#8C7F70" text-anchor="middle">Gold · Gold · Neutral</text>
-
-          <!-- Swatches -->
-          <circle cx="86" cy="558" r="22" fill="#B8923E"/>
-          <circle cx="160" cy="558" r="22" fill="#CDAA54"/>
-          <circle cx="234" cy="558" r="22" fill="#DFC272"/>
-          <text x="86" y="598" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#5C544A" text-anchor="middle">root</text>
-          <text x="160" y="598" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#5C544A" text-anchor="middle">mids</text>
-          <text x="234" y="598" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#5C544A" text-anchor="middle">ends</text>
-
-          <!-- home indicator -->
-          <rect x="120" y="618" width="80" height="4" rx="2" fill="#1C1C1C"/>
-        </svg>
+      <div class="form-error" id="formError">
+        Something went wrong. Please try again in a moment.
+      </div>
+      <div class="form-helper">
+        Already part of the beta? <a href="https://testflight.apple.com/join/h24eM2yK" class="beta-link">Install via TestFlight</a>
       </div>
     </div>
+
+    <div class="phone-wrap reveal">
+      <svg class="phone" viewBox="0 0 320 640" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="6" width="308" height="628" rx="44" ry="44" fill="#1C1C1C"/>
+        <rect x="12" y="12" width="296" height="616" rx="38" ry="38" fill="#FAFAF8"/>
+        <rect x="124" y="22" width="72" height="22" rx="11" ry="11" fill="#1C1C1C"/>
+        <text x="42" y="62" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#1C1C1C">9:41</text>
+        <circle cx="260" cy="58" r="2" fill="#1C1C1C"/>
+        <circle cx="268" cy="58" r="2" fill="#1C1C1C"/>
+        <circle cx="276" cy="58" r="2" fill="#1C1C1C"/>
+        <text x="160" y="92" font-family="Playfair Display, serif" font-style="italic" font-size="13" fill="#8C7F70" text-anchor="middle">Result</text>
+        <rect x="24" y="106" width="272" height="148" rx="16" ry="16" fill="#2D3A2E"/>
+        <text x="40" y="132" font-family="Inter, sans-serif" font-size="9" font-weight="600" letter-spacing="1" fill="#C9A96E">UNIVERSAL TONE</text>
+        <text x="40" y="162" font-family="Playfair Display, serif" font-size="22" fill="#FAFAF8">Level 8, </text>
+        <text x="118" y="162" font-family="Playfair Display, serif" font-style="italic" font-size="22" fill="#FAFAF8">warm beige</text>
+        <circle cx="44" cy="184" r="3" fill="#E8612D"/>
+        <text x="54" y="187" font-family="Inter, sans-serif" font-size="11" fill="rgba(250,250,248,0.65)">slightly warmer</text>
+        <line x1="142" y1="178" x2="142" y2="190" stroke="rgba(250,250,248,0.18)" stroke-width="1"/>
+        <text x="150" y="187" font-family="Inter, sans-serif" font-size="11" fill="rgba(250,250,248,0.65)">warm</text>
+        <rect x="40" y="206" width="120" height="8" rx="4" fill="#B25A47"/>
+        <rect x="160" y="206" width="60" height="8" rx="4" fill="#C9A96E"/>
+        <rect x="220" y="206" width="60" height="8" rx="4" fill="rgba(250,250,248,0.35)"/>
+        <rect x="40" y="226" width="64" height="18" rx="9" fill="rgba(250,250,248,0.08)" stroke="rgba(250,250,248,0.18)" stroke-width="0.5"/>
+        <text x="72" y="239" font-family="Inter, sans-serif" font-size="9" font-weight="500" fill="#FAFAF8" text-anchor="middle">Warm Beige</text>
+        <rect x="110" y="226" width="38" height="18" rx="9" fill="rgba(250,250,248,0.08)" stroke="rgba(250,250,248,0.18)" stroke-width="0.5"/>
+        <text x="129" y="239" font-family="Inter, sans-serif" font-size="9" font-weight="500" fill="#FAFAF8" text-anchor="middle">Gold</text>
+        <rect x="154" y="226" width="48" height="18" rx="9" fill="rgba(250,250,248,0.08)" stroke="rgba(250,250,248,0.18)" stroke-width="0.5"/>
+        <text x="178" y="239" font-family="Inter, sans-serif" font-size="9" font-weight="500" fill="#FAFAF8" text-anchor="middle">Neutral</text>
+        <text x="24" y="282" font-family="Inter, sans-serif" font-size="9" font-weight="600" letter-spacing="1" fill="#8C7F70">COLOR LINE</text>
+        <rect x="24" y="294" width="78" height="38" rx="19" fill="#2D3A2E"/>
+        <text x="63" y="312" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#FAFAF8" text-anchor="middle">Redken</text>
+        <text x="63" y="323" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="rgba(250,250,248,0.6)" text-anchor="middle">Shades EQ</text>
+        <rect x="108" y="294" width="78" height="38" rx="19" fill="#FFFFFF" stroke="#E5DED1" stroke-width="1"/>
+        <text x="147" y="312" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#2D3A2E" text-anchor="middle">Wella</text>
+        <text x="147" y="323" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#5C544A" text-anchor="middle">Shinefinity</text>
+        <rect x="192" y="294" width="78" height="38" rx="19" fill="#FFFFFF" stroke="#E5DED1" stroke-width="1"/>
+        <text x="231" y="312" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#2D3A2E" text-anchor="middle">L'Oréal</text>
+        <text x="231" y="323" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#5C544A" text-anchor="middle">Dia Light</text>
+        <rect x="108" y="338" width="104" height="38" rx="19" fill="#FFFFFF" stroke="#E5DED1" stroke-width="1"/>
+        <text x="160" y="356" font-family="Inter, sans-serif" font-size="11" font-weight="500" fill="#2D3A2E" text-anchor="middle">BLONDME</text>
+        <text x="160" y="367" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#5C544A" text-anchor="middle">Glow Toners</text>
+        <rect x="116" y="392" width="88" height="20" rx="10" fill="#F4EFE7"/>
+        <text x="160" y="406" font-family="Inter, sans-serif" font-size="9" font-weight="600" letter-spacing="1" fill="#5C544A" text-anchor="middle">INSTANT FORMULA</text>
+        <text x="160" y="434" font-family="Playfair Display, serif" font-style="italic" font-size="14" fill="#1C1C1C" text-anchor="middle">Suggested Formula</text>
+        <text x="160" y="468" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#1C1C1C" text-anchor="middle">½ oz 08G + ¼ oz 08GG</text>
+        <text x="160" y="488" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#1C1C1C" text-anchor="middle">+ ¼ oz 08N</text>
+        <text x="160" y="510" font-family="Playfair Display, serif" font-style="italic" font-size="11" fill="#8C7F70" text-anchor="middle">Gold · Gold · Neutral</text>
+        <circle cx="86" cy="558" r="22" fill="#B8923E"/>
+        <circle cx="160" cy="558" r="22" fill="#CDAA54"/>
+        <circle cx="234" cy="558" r="22" fill="#DFC272"/>
+        <text x="86" y="598" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#5C544A" text-anchor="middle">root</text>
+        <text x="160" y="598" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#5C544A" text-anchor="middle">mids</text>
+        <text x="234" y="598" font-family="Playfair Display, serif" font-style="italic" font-size="9" fill="#5C544A" text-anchor="middle">ends</text>
+        <rect x="120" y="618" width="80" height="4" rx="2" fill="#1C1C1C"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="pull-quote-section">
+  <div class="container-narrow reveal">
+    <div class="ornament" style="margin-bottom: 48px;">
+      <span class="ornament-line"></span>
+      <span class="ornament-mark"></span>
+      <span class="ornament-line"></span>
+    </div>
+    <p class="pull-quote">
+      Less guessing.<br>
+      <em>More confident formulation.</em>
+    </p>
+    <div class="pull-quote-attribution">A second opinion, before you mix.</div>
   </div>
 </section>
 
 <section class="how-section">
   <div class="container">
-    <div class="section-header">
+    <div class="section-header reveal">
       <div class="eyebrow">Tone with ease behind the chair</div>
-      <h2>How it <em>works.</em></h2>
-      <div class="sub">From service type to color line, in seconds.</div>
+      <h2>The <em>method.</em></h2>
+      <div class="section-sub">From service type to color line, in seconds.</div>
     </div>
 
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <h3>Choose service type</h3>
-        <p>Toning, color refresh, lowlights, root smudge, or tone after bleach.</p>
+    <div class="steps-editorial">
+      <div class="step-editorial reveal">
+        <div class="step-num-wrap">
+          <div class="step-num">01</div>
+          <div class="step-label">Service</div>
+        </div>
+        <div class="step-content">
+          <h3>Choose <em>service type.</em></h3>
+          <p>Toning, color refresh, lowlights, root smudge, or tone after bleach. Begin with the work in front of you.</p>
+        </div>
       </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <h3>Set your outcome</h3>
-        <p>Tone, lift level, underlying pigment, porosity, and more.</p>
+
+      <div class="step-editorial reveal">
+        <div class="step-num-wrap">
+          <div class="step-num">02</div>
+          <div class="step-label">Outcome</div>
+        </div>
+        <div class="step-content">
+          <h3>Set your <em>desired outcome.</em></h3>
+          <p>Tone, lift level, underlying pigment, porosity. The factors that shape every formula, considered with precision.</p>
+        </div>
       </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <h3>Universal Tone translates</h3>
-        <p>Your goal becomes a brand-independent formula direction.</p>
+
+      <div class="step-editorial reveal">
+        <div class="step-num-wrap">
+          <div class="step-num">03</div>
+          <div class="step-label">Translation</div>
+        </div>
+        <div class="step-content">
+          <h3>Universal Tone <em>translates.</em></h3>
+          <p>Your goal becomes a brand-independent formula direction. The same intention, expressed in the language your color line speaks.</p>
+        </div>
       </div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <h3>Get your formula</h3>
-        <p>A customized suggestion translated to your color line, in seconds.</p>
+
+      <div class="step-editorial reveal">
+        <div class="step-num-wrap">
+          <div class="step-num">04</div>
+          <div class="step-label">Formula</div>
+        </div>
+        <div class="step-content">
+          <h3>Receive your <em>formula.</em></h3>
+          <p>A customized suggestion translated to your color line, with honest notes when an exact match isn't possible. In seconds.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -685,26 +1033,30 @@ footer {
 
 <section class="brands-section">
   <div class="container">
-    <div class="section-header">
-      <div class="eyebrow">Color lines</div>
+    <div class="section-header reveal">
+      <div class="eyebrow">Color lines available</div>
       <h2>Translates across <em>four lines.</em></h2>
-      <div class="sub">More color lines rolling out throughout the year.</div>
+      <div class="section-sub">More color lines rolling out throughout the year.</div>
     </div>
 
     <div class="brand-list">
-      <div class="brand-card">
+      <div class="brand-card reveal">
+        <div class="brand-number">I</div>
         <div class="brand-name">Redken</div>
         <div class="brand-line">Shades EQ</div>
       </div>
-      <div class="brand-card">
+      <div class="brand-card reveal">
+        <div class="brand-number">II</div>
         <div class="brand-name">Wella</div>
         <div class="brand-line">Shinefinity</div>
       </div>
-      <div class="brand-card">
+      <div class="brand-card reveal">
+        <div class="brand-number">III</div>
         <div class="brand-name">L'Oréal</div>
         <div class="brand-line">Dia Light</div>
       </div>
-      <div class="brand-card">
+      <div class="brand-card reveal">
+        <div class="brand-number">IV</div>
         <div class="brand-name">BLONDME</div>
         <div class="brand-line">Glow Toners</div>
       </div>
@@ -714,38 +1066,42 @@ footer {
 
 <section class="pricing-section">
   <div class="container">
-    <div class="section-header">
-      <div class="eyebrow">Founding member pricing</div>
-      <h2 style="color: #FAFAF8;">Less guessing. <em style="color: #C9A96E;">More confident formulation.</em></h2>
+    <div class="section-header reveal">
+      <div class="eyebrow">Founding stylist pricing</div>
+      <h2 style="color: #F8F4EC;">An <em style="color: #C9A96E;">invitation</em> to shape it with us.</h2>
     </div>
 
-    <div class="pricing-card">
-      <div class="price-headline">1 WEEK FREE TRIAL</div>
+    <div class="pricing-card reveal">
+      <div class="price-headline">1 Week Free Trial</div>
       <div class="price-big">
         <span class="currency">$</span>4.99<span class="period">/mo</span>
       </div>
-      <div class="price-trial">during early access</div>
-      <div class="price-detail">Founding members lock this price after public launch.</div>
+      <div class="price-trial">locked in for founding stylists</div>
+      <div class="price-detail">Join the list now. We'll email you when Universal Tone launches on the App Store, with your founding rate locked in.</div>
 
-      <a href="https://testflight.apple.com/join/h24eM2yK" class="pricing-cta">Get early access</a>
+      <a href="#emailForm" class="pricing-cta">Become a founding stylist</a>
     </div>
   </div>
 </section>
 
 <section class="final-cta">
-  <h2>Built by a stylist, <em>for stylists.</em></h2>
-  <p>Join the colorists shaping the next generation of formulation.</p>
-  <a href="https://testflight.apple.com/join/h24eM2yK" class="final-cta-button">Install Universal Tone</a>
+  <div class="reveal">
+    <div class="eyebrow">A craft, considered</div>
+    <h2>Built by a stylist,<br><em>for stylists.</em></h2>
+    <p>Be among the founding stylists shaping the next generation of formulation.</p>
+    <a href="#emailForm" class="final-cta-button">Become a founding stylist</a>
+  </div>
 </section>
 
 <footer>
   <div class="footer-content">
     <img src="logo-mark.svg" alt="Universal Tone" class="logo-mark-footer">
     <div class="footer-tagline">Color, considered.</div>
+    <div class="footer-divider"></div>
     <p class="footer-disclaimer">
       Universal Tone is an independent tool and is not affiliated with, sponsored by, or endorsed by any listed color brand. Formulas are suggestions and should be adjusted using professional judgment.
     </p>
-    <p class="footer-copyright">© 2026 Universal Tone. All rights reserved.</p>
+    <p class="footer-copyright">© 2026 Universal Tone</p>
   </div>
 </footer>
 
@@ -783,6 +1139,17 @@ footer {
       button.disabled = false;
     }
   });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 
 </body>
