@@ -6,6 +6,25 @@
 <title>Universal Tone — Color, considered.</title>
 <meta name="description" content="A formulation tool for the working colorist. Translates Universal Tone results across Redken Shades EQ, Wella Shinefinity, L'Oréal Dia Light, and BLONDME Glow Toners.">
 
+<link rel="canonical" href="https://universaltone.app/">
+<meta name="theme-color" content="#2D3A2E">
+
+<link rel="icon" type="image/svg+xml" href="logo-mark.svg">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://universaltone.app/">
+<meta property="og:title" content="Universal Tone — Color, considered.">
+<meta property="og:description" content="A formulation tool for the working colorist. Translates results across Redken Shades EQ, Wella Shinefinity, L'Oréal Dia Light, and BLONDME Glow Toners.">
+<meta property="og:image" content="https://universaltone.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Universal Tone — Color, considered.">
+<meta name="twitter:description" content="A formulation tool for the working colorist, translating across four professional color lines.">
+<meta name="twitter:image" content="https://universaltone.app/og-image.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -299,6 +318,14 @@ section { padding: 100px 0; position: relative; }
   font-style: italic;
   font-family: var(--serif);
   letter-spacing: 0.2px;
+}
+.form-privacy {
+  font-size: 12px;
+  color: var(--text-light);
+  font-style: italic;
+  font-family: var(--serif);
+  margin-top: 12px;
+  opacity: 0.85;
 }
 .beta-link {
   color: var(--brand);
@@ -887,7 +914,7 @@ footer {
       </p>
 
       <form class="email-form" id="emailForm" action="https://formspree.io/f/mlgkddpj" method="POST">
-        <input type="email" name="email" placeholder="Your email address" required>
+        <input type="email" name="email" placeholder="Your email address" aria-label="Email address" required>
         <input type="hidden" name="source" value="universaltone.app landing">
         <button type="submit">Become a founding stylist</button>
       </form>
@@ -900,10 +927,11 @@ footer {
       <div class="form-helper">
         Already part of the beta? <a href="https://testflight.apple.com/join/h24eM2yK" class="beta-link">Install via TestFlight</a>
       </div>
+      <p class="form-privacy">We'll only email you about Universal Tone. No spam — unsubscribe anytime.</p>
     </div>
 
     <div class="phone-wrap reveal">
-      <svg class="phone" viewBox="0 0 320 640" xmlns="http://www.w3.org/2000/svg">
+      <svg class="phone" viewBox="0 0 320 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Preview of the Universal Tone results screen: a Level 8 warm beige result translated into a suggested formula across four color lines.">
         <rect x="6" y="6" width="308" height="628" rx="44" ry="44" fill="#1C1C1C"/>
         <rect x="12" y="12" width="296" height="616" rx="38" ry="38" fill="#FAFAF8"/>
         <rect x="124" y="22" width="72" height="22" rx="11" ry="11" fill="#1C1C1C"/>
